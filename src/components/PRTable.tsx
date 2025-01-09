@@ -180,12 +180,11 @@ export function PRTable() {
     return <div className="text-center py-8">No pull requests found</div>;
   }
 
-  // Update table headers to include merged status
+  // Update table headers to remove merged status
   const tableHeaders = [
     { key: 'number', label: 'PR' },
     { key: 'title', label: 'Title' },
     { key: 'state', label: 'Status' },
-    { key: 'merged', label: 'Merged' },
     { key: 'user', label: 'Author' },
     { key: 'labels', label: 'Labels' },
     { key: 'created_at', label: 'Created' }
@@ -288,13 +287,6 @@ export function PRTable() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <StatusBadge pr={pr} />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  {pr.merged ? (
-                    <span className="text-purple-600">✓ Merged</span>
-                  ) : (
-                    <span className="text-gray-500">-</span>
-                  )}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">

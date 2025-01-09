@@ -20,6 +20,7 @@ const UserProfile: React.FC = () => {
           alt={user.displayName ?? 'User'} 
           className="w-20 h-20 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-gray-200"
           onError={(e) => {
+            // Fallback if image fails to load
             const target = e.target as HTMLImageElement;
             target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}`;
           }}

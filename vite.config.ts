@@ -8,10 +8,6 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   server: {
-    headers: {
-      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
-      'Cross-Origin-Embedder-Policy': 'credentialless'
-    },
     cors: {
       origin: '*',
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],

@@ -43,6 +43,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
         last_login: new Date().toISOString()
       });
 
+      // Ensure user data is set correctly
       set({ user, error: null });
     } catch (error) {
       console.error('Sign in error:', error);

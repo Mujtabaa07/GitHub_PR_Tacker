@@ -1,9 +1,10 @@
-
 import { Github } from 'lucide-react';
 import { RepoInput } from './components/RepoInput';
 import { PRTable } from './components/PRTable';
 import { AuthButton } from './components/AuthButton';
 import { Analytics } from './components/Analytics';
+import UserProfile from './components/UserProfile';
+import './styles.css'; // Import the CSS file
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
 
       <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="space-y-8">
+          <UserProfile />
           <RepoInput />
           <Analytics />
           <PRTable />

@@ -12,6 +12,7 @@
   "dependencies": {
     "@octokit/rest": "^20.0.2",
     "@supabase/supabase-js": "^2.39.7",
+    "cors": "^2.8.5",
     "firebase": "^10.8.0",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",

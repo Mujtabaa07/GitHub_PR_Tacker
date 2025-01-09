@@ -34,17 +34,24 @@ export const useAuthStore = create<AuthStore>((set) => ({
       const result = await signInWithPopup(auth, provider);
       const { user } = result;
 
-      // Store user in Supabase
+      // Store user in Supabase with guaranteed photoURL
       await supabase.from('users').upsert({
         id: user.uid,
         email: user.email,
         name: user.displayName,
-        avatar_url: user.photoURL,
+        avatar_url: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}`,
         last_login: new Date().toISOString()
       });
 
       // Ensure user data is set correctly
-      set({ user, error: null });
+      set({ 
+        user: {
+          ...user,
+          // Ensure photoURL has a fallback
+          photoURL: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || 'User')}`
+        }, 
+        error: null 
+      });
     } catch (error) {
       console.error('Sign in error:', error);
       set({ error: 'Failed to sign in with Google' });

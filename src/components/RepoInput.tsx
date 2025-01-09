@@ -18,20 +18,20 @@ export function RepoInput() {
 
   return (
     <div className="space-y-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-2xl">
+      <form onSubmit={handleSubmit} className="w-full">
         <div className="relative">
           <input
             type="text"
             value={repoUrl}
             onChange={(e) => setRepoUrl(e.target.value)}
-            placeholder="Enter GitHub repository URL (e.g., https://github.com/owner/repo)"
-            className="w-full px-4 py-2 pr-12 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter GitHub repository URL"
+            className="w-full px-4 py-2 pr-12 text-sm sm:text-base border rounded-lg focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
             className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-500 hover:text-blue-500"
           >
-            <Search size={20} />
+            <Search size={18} />
           </button>
         </div>
         {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
@@ -50,10 +50,12 @@ export function RepoInput() {
                   setRepoUrl(url);
                   setRepository(url);
                 }}
-                className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
               >
                 <Star size={14} className="mr-1 text-yellow-500" />
-                {url.split('/').slice(-2).join('/')}
+                <span className="truncate max-w-[150px] sm:max-w-[200px]">
+                  {url.split('/').slice(-2).join('/')}
+                </span>
               </button>
             ))}
           </div>

@@ -193,48 +193,50 @@ export function PRTable() {
 
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden">
-      <div className="p-4 border-b border-gray-200 flex flex-wrap gap-4 items-center">
-        <div className="flex gap-4">
-          <div className="relative">
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <div className="relative w-full sm:w-auto">
+              <select
+                value={filters.status}
+                onChange={(e) => setFilters(f => ({ ...f, status: e.target.value }))}
+                className="w-full sm:w-auto pl-8 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">All PRs</option>
+                <option value="open">Open</option>
+                <option value="merged">Merged</option>
+                <option value="closed">Closed (Unmerged)</option>
+              </select>
+              <Filter className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            </div>
+            
             <select
-              value={filters.status}
-              onChange={(e) => setFilters(f => ({ ...f, status: e.target.value }))}
-              className="pl-8 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+              value={filters.label}
+              onChange={(e) => setFilters(f => ({ ...f, label: e.target.value }))}
+              className="w-full sm:w-auto px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
             >
-              <option value="all">All PRs</option>
-              <option value="open">Open</option>
-              <option value="merged">Merged</option>
-              <option value="closed">Closed (Unmerged)</option>
+              <option value="">All Labels</option>
+              {uniqueLabels.map(label => (
+                <option key={label} value={label}>{label}</option>
+              ))}
             </select>
-            <Filter className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-          </div>
-          
-          <select
-            value={filters.label}
-            onChange={(e) => setFilters(f => ({ ...f, label: e.target.value }))}
-            className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">All Labels</option>
-            {uniqueLabels.map(label => (
-              <option key={label} value={label}>{label}</option>
-            ))}
-          </select>
 
-          <input
-            type="text"
-            placeholder="Search PRs..."
-            value={filters.search}
-            onChange={(e) => setFilters(f => ({ ...f, search: e.target.value }))}
-            className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
+            <input
+              type="text"
+              placeholder="Search PRs..."
+              value={filters.search}
+              onChange={(e) => setFilters(f => ({ ...f, search: e.target.value }))}
+              className="w-full sm:w-auto px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
+            onClick={exportToCSV}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
+          >
+            <Download size={16} />
+            Export CSV
+          </button>
         </div>
-        <button
-          onClick={exportToCSV}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
-        >
-          <Download size={16} />
-          Export CSV
-        </button>
       </div>
 
       <div className="overflow-x-auto">

@@ -4,7 +4,7 @@ import { PRTable } from './components/PRTable';
 import { AuthButton } from './components/AuthButton';
 import { Analytics } from './components/Analytics';
 import UserProfile from './components/UserProfile';
-import './styles.css'; // Import the CSS file
+
 
 export default function App() {
   return (

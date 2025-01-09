@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCpUAT5xQOslO79SZ8K1NiIafk1F2HXzO0",
-  authDomain: "github-pr-tacker.firebaseapp.com",
-  projectId: "github-pr-tacker",
-  storageBucket: "github-pr-tacker.firebasestorage.app",
-  messagingSenderId: "819248644894",
-  appId: "1:819248644894:web:f6e820c40a788fc3dcff0f",
-  measurementId: "G-58S67QW1RV"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase

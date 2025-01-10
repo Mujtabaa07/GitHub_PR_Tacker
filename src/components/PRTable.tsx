@@ -30,7 +30,11 @@ function StatusBadge({ pr }: { pr: PullRequest }) {
   );
 }
 
-function CopyButton({ text }: { text: string }) {
+function CopyButton({ text, isChecked, onToggleCheck }: { 
+  text: string; 
+  isChecked: boolean;
+  onToggleCheck: () => void;
+}) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -40,17 +44,26 @@ function CopyButton({ text }: { text: string }) {
   };
 
   return (
-    <button
-      onClick={handleCopy}
-      className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
-      title="Copy link"
-    >
-      {copied ? (
-        <Check size={14} className="text-green-500" />
-      ) : (
-        <Copy size={14} />
-      )}
-    </button>
+    <div className="flex items-center gap-2">
+      <button
+        onClick={handleCopy}
+        className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
+        title="Copy link"
+      >
+        {copied ? (
+          <Check size={14} className="text-green-500" />
+        ) : (
+          <Copy size={14} />
+        )}
+      </button>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={onToggleCheck}
+        className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+        title="Mark as points allocated"
+      />
+    </div>
   );
 }
 
@@ -72,7 +85,7 @@ function LabelBadge({ name, color }: { name: string; color: string }) {
 }
 
 export function PRTable() {
-  const { pullRequests, isLoading } = useGithubStore();
+  const { pullRequests, isLoading, checkedPRs, togglePRCheck } = useGithubStore();
   const [sortField, setSortField] = useState<keyof PullRequest>('number');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [filters, setFilters] = useState({
@@ -272,7 +285,11 @@ export function PRTable() {
                       #{pr.number}
                       <ExternalLink size={14} />
                     </a>
-                    <CopyButton text={pr.html_url} />
+                    <CopyButton 
+                      text={pr.html_url} 
+                      isChecked={checkedPRs[pr.html_url] || false}
+                      onToggleCheck={() => togglePRCheck(pr.html_url)}
+                    />
                   </div>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-500">

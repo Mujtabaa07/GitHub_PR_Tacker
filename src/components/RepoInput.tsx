@@ -43,21 +43,33 @@ export function RepoInput() {
         <div className="mt-4">
           <h3 className="text-sm font-medium text-gray-700 mb-2">Favorite Repositories</h3>
           <div className="flex flex-wrap gap-2">
-            {favorites.map((url) => (
-              <button
-                key={url}
-                onClick={() => {
-                  setRepoUrl(url);
-                  setRepository(url);
-                }}
-                className="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
-              >
-                <Star size={14} className="mr-1 text-yellow-500" />
-                <span className="truncate max-w-[150px] sm:max-w-[200px]">
-                  {url.split('/').slice(-2).join('/')}
-                </span>
-              </button>
-            ))}
+            {favorites.map((url) => {
+              const checkedCount = Object.entries(useGithubStore.getState().checkedPRs)
+                .filter(([prUrl, checked]) => 
+                  prUrl.includes(url.split('/').slice(-2).join('/')) && checked
+                ).length;
+
+              return (
+                <button
+                  key={url}
+                  onClick={() => {
+                    setRepoUrl(url);
+                    setRepository(url);
+                  }}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
+                >
+                  <Star size={14} className="mr-1 text-yellow-500" />
+                  <span className="truncate max-w-[150px] sm:max-w-[200px]">
+                    {url.split('/').slice(-2).join('/')}
+                  </span>
+                  {checkedCount > 0 && (
+                    <span className="ml-2 px-1.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs">
+                      {checkedCount} ✓
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
